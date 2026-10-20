@@ -1,0 +1,44 @@
+New Terminal Output:
+
+PY
+agent@3bd03f35102a:/app$ cat /tmp/lo.txt
+Warning: failed to launch javaldx - java may not function correctly
+convert /app/BoomerangSales.xlsx as a Calc document -> /tmp/BoomerangSales.xlsx using filter : Calc Office Open XML
+agent@3bd03f35102a:/app$ python3 - <<'PY'
+> import openpyxl, os
+> p='/app/BoomerangSales.xlsx'
+> w=openpyxl.load_workbook(p,data_only=False)
+> print(w.sheetnames, w['Sheet1'].max_column, w['Sheet1'].cell(1,w['Sheet1'].max_column).value)
+> print('Revenue formula:',w['Sheet1']['G2'].value)
+> print('Summary rows:',w['Sheet2'].max_row)
+> print('File bytes:',os.path.getsize(p))
+> PY
+['Sheet1', 'Retail Price', 'Sheet2'] 7 Revenue
+Revenue formula: =E2*VLOOKUP(C2,'Retail Price'!$A$2:$B$23,2,FALSE)*(1-F2)
+Summary rows: 16
+File bytes: 9383
+agent@3bd03f35102a:/app$ cat /tmp/lo.txt 2>/dev/null; ls -l /app/BoomerangSales.xlsx /tmp/BoomerangSales.xlsx 2>/dev/null; python3 - <<'PY'
+> import openpyxl, os
+> p='/app/BoomerangSales.xlsx'
+> w=openpyxl.load_workbook(p,data_only=False)
+> print(w.sheetnames)
+> for s in w:
+>  print(s.title,s.max_row,s.max_column)
+> print('G2',w['Sheet1']['G2'].value)
+> print('Sheet2 sample',list(w['Sheet2'].values)[:5] if 'Sheet2' in w else None)
+> wv=openpyxl.load_workbook(p,data_only=True)
+> print('cached G2',wv['Sheet1']['G2'].value)
+> PY
+Warning: failed to launch javaldx - java may not function correctly
+convert /app/BoomerangSales.xlsx as a Calc document -> /tmp/BoomerangSales.xlsx using filter : Calc Office Open XML
+-rw-r--r-- 1 agent agent  9383 Oct 20 18:20 /app/BoomerangSales.xlsx
+-rw-r--r-- 1 agent agent 12009 Oct 20 18:20 /tmp/BoomerangSales.xlsx
+['Sheet1', 'Retail Price', 'Sheet2']
+Sheet1 36 7
+Retail Price 23 2
+Sheet2 16 2
+G2 =E2*VLOOKUP(C2,'Retail Price'!$A$2:$B$23,2,FALSE)*(1-F2)
+Sheet2 sample [('Product', 'Revenue'), ('Aspen', '=SUMIF(Sheet1!$C$2:$C$36,A2,Sheet1!$G$2:$G$36)'), ('Yanaki', '=SUMIF(Sheet1!$C$2:$C$36,A3,Sheet1!$G$2:$G$36)')
+, ('Bellen', '=SUMIF(Sheet1!$C$2:$C$36,A4,Sheet1!$G$2:$G$36)'), ('Quad', '=SUMIF(Sheet1!$C$2:$C$36,A5,Sheet1!$G$2:$G$36)')]
+cached G2 None
+agent@3bd03f35102a:/app$

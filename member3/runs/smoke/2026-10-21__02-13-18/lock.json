@@ -1,0 +1,88 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-10-20T18:13:18.573539Z",
+    "harbor": {
+        "version": "0.6.3",
+        "is_editable": false
+    },
+    "invocation": [
+        "/home/cicilia/projects/pe6203/TUA-Bench/.venv/bin/harbor",
+        "run",
+        "-p",
+        "tasks/010-pivot-product-revenue",
+        "--agent-import-path",
+        "member3.loop_recovery:LoopRecoveryTerminus2",
+        "-m",
+        "openai/gpt-6-luna",
+        "--ak",
+        "api_base=http://172.26.240.1:64915/v1",
+        "--ak",
+        "max_turns=10",
+        "--ak",
+        "enable_loop_recovery=true",
+        "--ak",
+        "llm_call_kwargs={\"max_tokens\":2048}",
+        "--ak",
+        "model_info={\"max_input_tokens\":272000,\"max_output_tokens\":2048}",
+        "-n",
+        "1",
+        "-k",
+        "1",
+        "--jobs-dir",
+        "member3/runs/smoke"
+    ],
+    "n_concurrent_trials": 1,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "VerifierOutputParseError",
+            "RewardFileNotFoundError",
+            "AgentTimeoutError",
+            "VerifierTimeoutError",
+            "RewardFileEmptyError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "010-pivot-product-revenue",
+                "type": "local",
+                "digest": "sha256:d0eef3e2e70973e2d3d634f0ddfff7ad53caee760c2c906242a69524751f7c6f",
+                "path": "tasks/010-pivot-product-revenue"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "member3.loop_recovery:LoopRecoveryTerminus2",
+                "model_name": "openai/gpt-6-luna",
+                "kwargs": {
+                    "api_base": "http://172.26.240.1:64915/v1",
+                    "max_turns": 10,
+                    "enable_loop_recovery": true,
+                    "llm_call_kwargs": {
+                        "max_tokens": 2048
+                    },
+                    "model_info": {
+                        "max_input_tokens": 272000,
+                        "max_output_tokens": 2048
+                    }
+                },
+                "env": {}
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

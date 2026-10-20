@@ -1,0 +1,14 @@
+New Terminal Output:
+
+agent@3bd03f35102a:/app$ python3 - <<'PY'
+> import openpyxl
+> p='/tmp/BoomerangSales.xlsx'
+> w=openpyxl.load_workbook(p,data_only=True)
+> print(w.sheetnames)
+> print('Revenue result G2:', w['Sheet1']['G2'].value)
+> print('Summary sample:', list(w['Sheet2'].values)[:4])
+> PY
+['Sheet1', 'Retail Price', 'Sheet2']
+Revenue result G2: 604.83225
+Summary sample: [('Product', 'Revenue'), ('Aspen', 2262.9133), ('Yanaki', 590.3675), ('Bellen', 173.575)]
+agent@3bd03f35102a:/app$

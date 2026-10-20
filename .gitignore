@@ -48,3 +48,6 @@ tasks/050-mri-png-slices/solution/reference/prostate_00_png_slices/*.png
 tasks/050-mri-png-slices/tests/reference/prostate_00_png_slices/*.png
 tasks/054-prostate-label-obj/environment/input/case_7f3a9c_label.nii.gz
 tasks/054-prostate-label-obj/input/case_7f3a9c_label.nii.gz
+
+# Local IDE settings
+/.idea/

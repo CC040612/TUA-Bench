@@ -1,0 +1,38 @@
+New Terminal Output:
+
+agent@3bd03f35102a:/app$ python3 - <<'PY'
+> import openpyxl
+> w=openpyxl.load_workbook('/app/BoomerangSales.xlsx',data_only=False)
+> for row in w['Retail Price'].iter_rows(values_only=True): print(row)
+> print('Products in sales:')
+> print(sorted({w['Sheet1'].cell(r,3).value for r in range(2,w['Sheet1'].max_row+1)}))
+> PY
+('Product', 'Retail Price')
+('Alpine', 21.95)
+('Aspen', 21.95)
+('Carlota', 19.95)
+('Crested Beaut', 17.95)
+('Majestic Beaut', 26.95)
+('Sunshine', 20)
+('Bellen', 25)
+('Eagle', 21.95)
+('Yanaki', 23.95)
+('Phoenix', 23.95)
+('Darnell Tri Fly', 9.95)
+('Fun Fly', 5)
+('Fire Aspen', 22)
+('Sunset', 26)
+('Sunspot', 14)
+('Carlota Doublers', 75)
+('GelFast', 24)
+('Frido Fast Catch', 50)
+('Manu MTA', 120)
+('Manu LD', 250)
+('Bower Aussie Round', 43)
+('Quad', 39.95)
+Products in sales:
+['Aspen', 'Bellen', 'Bower Aussie Round', 'Carlota Doublers', 'Crested Beaut', 'Fire Aspen', 'Fun Fly', 'GelFast', 'Manu LD', 'Manu MTA', 'Quad', 'Sunset', 'Sun
+shine', 'Sunspot', 'Yanaki']
+agent@3bd03f35102a:/app$ which libreoffice || which soffice || true
+/usr/local/bin/libreoffice
+agent@3bd03f35102a:/app$
